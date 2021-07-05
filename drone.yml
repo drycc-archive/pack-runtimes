@@ -11,8 +11,10 @@ steps:
   image: docker.io/drycc/go-dev
   privileged: true
   commands:
-  - pip install pip --upgrade
-  - pip install -r requirements.txt
+  - apt-get update -qq
+  - apt-get install -y --no-install-recommends python3-pip
+  - pip3 install setuptools pip --upgrade
+  - pip3 install -r requirements.txt
   - bin/ruby.sh 2.5.9 /tmp/dist
   - bin/ruby.sh 2.6.7 /tmp/dist
   - bin/ruby.sh 2.7.3 /tmp/dist
@@ -21,10 +23,10 @@ steps:
   - bin/python.sh 3.7.11 /tmp/dist
   - bin/python.sh 3.8.11 /tmp/dist
   - bin/python.sh 3.9.6 /tmp/dist
-  - bin/python.sh 7.3.29 /tmp/dist
-  - bin/python.sh 7.4.21 /tmp/dist
-  - bin/python.sh 8.0.8 /tmp/dist
-  - python upload /tmp/dist
+  - bin/php.sh 7.3.29 /tmp/dist
+  - bin/php.sh 7.4.21 /tmp/dist
+  - bin/php.sh 8.0.8 /tmp/dist
+  - python3 upload.py /tmp/dist
   environment:
     OSS_ENDPOINT:
       from_secret: oss_endpoint
@@ -59,8 +61,10 @@ steps:
   image: docker.io/drycc/go-dev
   privileged: true
   commands:
-  - pip install pip --upgrade
-  - pip install -r requirements.txt
+  - apt-get update -qq
+  - apt-get install -y --no-install-recommends python3-pip 
+  - pip3 install setuptools pip --upgrade
+  - pip3 install -r requirements.txt
   - bin/ruby.sh 2.5.9 /tmp/dist
   - bin/ruby.sh 2.6.7 /tmp/dist
   - bin/ruby.sh 2.7.3 /tmp/dist
@@ -69,10 +73,10 @@ steps:
   - bin/python.sh 3.7.11 /tmp/dist
   - bin/python.sh 3.8.11 /tmp/dist
   - bin/python.sh 3.9.6 /tmp/dist
-  - bin/python.sh 7.3.29 /tmp/dist
-  - bin/python.sh 7.4.21 /tmp/dist
-  - bin/python.sh 8.0.8 /tmp/dist
-  - python upload /tmp/dist
+  - bin/php.sh 7.3.29 /tmp/dist
+  - bin/php.sh 7.4.21 /tmp/dist
+  - bin/php.sh 8.0.8 /tmp/dist
+  - python3 upload.py /tmp/dist
   environment:
     OSS_ENDPOINT:
       from_secret: oss_endpoint
@@ -92,3 +96,4 @@ volumes:
 - name: image_registries
   host:
     path: /etc/containers/registries.conf
+
