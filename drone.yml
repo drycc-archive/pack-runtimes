@@ -1,0 +1,94 @@
+kind: pipeline
+type: docker
+name: linux-amd64
+
+platform:
+  arch: amd64
+  os: linux
+
+steps:
+- name: publish
+  image: docker.io/drycc/go-dev
+  privileged: true
+  commands:
+  - pip install pip --upgrade
+  - pip install -r requirements.txt
+  - bin/ruby.sh 2.5.9 /tmp/dist
+  - bin/ruby.sh 2.6.7 /tmp/dist
+  - bin/ruby.sh 2.7.3 /tmp/dist
+  - bin/ruby.sh 3.0.1 /tmp/dist
+  - bin/python.sh 3.6.14 /tmp/dist
+  - bin/python.sh 3.7.11 /tmp/dist
+  - bin/python.sh 3.8.11 /tmp/dist
+  - bin/python.sh 3.9.6 /tmp/dist
+  - bin/python.sh 7.3.29 /tmp/dist
+  - bin/python.sh 7.4.21 /tmp/dist
+  - bin/python.sh 8.0.8 /tmp/dist
+  - python upload /tmp/dist
+  environment:
+    OSS_ENDPOINT:
+      from_secret: oss_endpoint
+    OSS_ACCESS_KEY_ID:
+      from_secret: oss_access_key_id
+    OSS_ACCESS_KEY_SECRET:
+      from_secret: oss_access_key_secret
+  when:
+    event:
+    - push
+    - tag
+  volumes:
+  - name: image_registries
+    path: /etc/containers/registries.conf
+
+volumes:
+- name: image_registries
+  host:
+    path: /etc/containers/registries.conf
+
+---
+kind: pipeline
+type: docker
+name: linux-arm64
+
+platform:
+  arch: arm64
+  os: linux
+
+steps:
+- name: publish
+  image: docker.io/drycc/go-dev
+  privileged: true
+  commands:
+  - pip install pip --upgrade
+  - pip install -r requirements.txt
+  - bin/ruby.sh 2.5.9 /tmp/dist
+  - bin/ruby.sh 2.6.7 /tmp/dist
+  - bin/ruby.sh 2.7.3 /tmp/dist
+  - bin/ruby.sh 3.0.1 /tmp/dist
+  - bin/python.sh 3.6.14 /tmp/dist
+  - bin/python.sh 3.7.11 /tmp/dist
+  - bin/python.sh 3.8.11 /tmp/dist
+  - bin/python.sh 3.9.6 /tmp/dist
+  - bin/python.sh 7.3.29 /tmp/dist
+  - bin/python.sh 7.4.21 /tmp/dist
+  - bin/python.sh 8.0.8 /tmp/dist
+  - python upload /tmp/dist
+  environment:
+    OSS_ENDPOINT:
+      from_secret: oss_endpoint
+    OSS_ACCESS_KEY_ID:
+      from_secret: oss_access_key_id
+    OSS_ACCESS_KEY_SECRET:
+      from_secret: oss_access_key_secret
+  when:
+    event:
+    - push
+    - tag
+  volumes:
+  - name: image_registries
+    path: /etc/containers/registries.conf
+
+volumes:
+- name: image_registries
+  host:
+    path: /etc/containers/registries.conf
