@@ -26,7 +26,7 @@ steps:
   - bin/php.sh 7.3.29 /tmp/dist
   - bin/php.sh 7.4.21 /tmp/dist
   - bin/php.sh 8.0.8 /tmp/dist
-  - python3 upload.py /tmp/dist
+  - python3 upload.py /tmp/dist drycc-20
   environment:
     OSS_ENDPOINT:
       from_secret: oss_endpoint
@@ -76,7 +76,7 @@ steps:
   - bin/php.sh 7.3.29 /tmp/dist
   - bin/php.sh 7.4.21 /tmp/dist
   - bin/php.sh 8.0.8 /tmp/dist
-  - python3 upload.py /tmp/dist
+  - python3 upload.py /tmp/dist drycc-20
   environment:
     OSS_ENDPOINT:
       from_secret: oss_endpoint

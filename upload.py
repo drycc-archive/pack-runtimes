@@ -19,14 +19,14 @@ def upload(filename, filepath):
         print("upload %s %s" % (filename, result.status))
 
 
-def upload_list(path):
+def upload_list(path, version):
     for root, dirs, files in os.walk(path):
         for _filename in  files:
-            filename = os.path.join(root.split(os.sep)[-1], _filename)
+            filename = os.path.join(root.split(os.sep)[-1], version, _filename)
             filepath = os.path.join(root, _filename)
             upload(filename, filepath)
         
 
 
 if __name__ == "__main__":
-    upload_list(sys.argv[1])
+    upload_list(sys.argv[1], sys.argv[2])
