@@ -10,3 +10,4 @@ docker run -v $PHP_TMP_DIR:/tmp/php --rm -it docker.io/library/php:$PHP_VERSION-
 cd $PHP_TMP_DIR
 tar -zcvf $PHP_BIN_PATH .
 rm -rf $PHP_TMP_DIR
+docker rmi -f docker.io/library/php:$PHP_VERSION-fpm

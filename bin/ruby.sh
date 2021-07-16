@@ -10,3 +10,4 @@ docker run -v $RUBY_TMP_DIR:/tmp/ruby --rm -it docker.io/library/ruby:$RUBY_VERS
 cd $RUBY_TMP_DIR
 tar -zcvf $RUBY_BIN_PATH .
 rm -rf $RUBY_TMP_DIR
+docker rmi -f docker.io/library/ruby:$RUBY_VERSION

@@ -10,3 +10,4 @@ docker run -v $PYTHON_TMP_DIR:/tmp/python --rm -it docker.io/library/python:$PYT
 cd $PYTHON_TMP_DIR
 tar -zcvf $PYTHON_BIN_PATH .
 rm -rf $PYTHON_TMP_DIR
+docker rmi -f docker.io/library/python:$PYTHON_VERSION
