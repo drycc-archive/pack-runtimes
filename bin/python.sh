@@ -5,9 +5,10 @@ PYTHON_BIN_PATH=${PYTHON_BIN_DIR}/python-${PYTHON_VERSION}-$(dpkg --print-archit
 
 mkdir -p $PYTHON_TMP_DIR $PYTHON_BIN_DIR
 
-docker run -v $PYTHON_TMP_DIR:/tmp/python --rm -it docker.io/library/python:$PYTHON_VERSION bash -c "cp -rf /usr/local/* /tmp/python"
+docker run -v $PYTHON_TMP_DIR:/tmp/python --rm -it docker.io/library/python:$PYTHON_VERSION-bullseye bash -c "cp -rf /usr/local/* /tmp/python"
 
 cd $PYTHON_TMP_DIR
 tar -zcvf $PYTHON_BIN_PATH .
 rm -rf $PYTHON_TMP_DIR
-docker rmi -f docker.io/library/python:$PYTHON_VERSION
+cd -
+docker rmi -f docker.io/library/python:$PYTHON_VERSION-bullseye

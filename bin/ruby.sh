@@ -5,9 +5,10 @@ RUBY_BIN_PATH=${RUBY_BIN_DIR}/ruby-${RUBY_VERSION}-$(dpkg --print-architecture).
 
 mkdir -p $RUBY_TMP_DIR $RUBY_BIN_DIR
 
-docker run -v $RUBY_TMP_DIR:/tmp/ruby --rm -it docker.io/library/ruby:$RUBY_VERSION bash -c "cp -rf /usr/local/* /tmp/ruby"
+docker run -v $RUBY_TMP_DIR:/tmp/ruby --rm -it docker.io/library/ruby:$RUBY_VERSION-bullseye bash -c "cp -rf /usr/local/* /tmp/ruby"
 
 cd $RUBY_TMP_DIR
 tar -zcvf $RUBY_BIN_PATH .
 rm -rf $RUBY_TMP_DIR
-docker rmi -f docker.io/library/ruby:$RUBY_VERSION
+cd -
+docker rmi -f docker.io/library/ruby:$RUBY_VERSION-bullseye
