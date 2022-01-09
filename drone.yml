@@ -8,25 +8,24 @@ platform:
 
 steps:
 - name: publish
-  image: docker.io/drycc/go-dev
+  image: quay.io/containers/podman
   privileged: true
   commands:
-  - apt-get update -qq
-  - apt-get install -y --no-install-recommends python3-pip
-  - pip3 install setuptools pip --upgrade
-  - pip3 install -r requirements.txt
   - bin/ruby.sh 2.6.8 /tmp/dist
-  - bin/ruby.sh 2.7.4 /tmp/dist
-  - bin/ruby.sh 3.0.2 /tmp/dist
-  - bin/python.sh 3.6.15 /tmp/dist
-  - bin/python.sh 3.7.12 /tmp/dist
-  - bin/python.sh 3.8.12 /tmp/dist
-  - bin/python.sh 3.9.7 /tmp/dist
-  - bin/python.sh 3.10.0 /tmp/dist
-  - bin/php.sh 7.3.31 /tmp/dist
-  - bin/php.sh 7.4.24 /tmp/dist
-  - bin/php.sh 8.0.11 /tmp/dist
-  - python3 upload.py /tmp/dist drycc-20
+      && bin/ruby.sh 2.7.4 /tmp/dist
+      && bin/ruby.sh 3.0.2 /tmp/dist
+      && bin/python.sh 3.6.15 /tmp/dist
+      && bin/python.sh 3.7.12 /tmp/dist
+      && bin/python.sh 3.8.12 /tmp/dist
+      && bin/python.sh 3.9.7 /tmp/dist
+      && bin/python.sh 3.10.0 /tmp/dist
+      && bin/php.sh 7.3.31 /tmp/dist
+      && bin/php.sh 7.4.24 /tmp/dist
+      && bin/php.sh 8.0.11 /tmp/dist
+      && dnf install -y python3-pip
+      && pip3 install setuptools pip --upgrade
+      && pip3 install -r requirements.txt
+      && python3 upload.py /tmp/dist drycc-20
   environment:
     OSS_ENDPOINT:
       from_secret: oss_endpoint
@@ -38,14 +37,6 @@ steps:
     event:
     - push
     - tag
-  volumes:
-  - name: image_registries
-    path: /etc/containers/registries.conf
-
-volumes:
-- name: image_registries
-  host:
-    path: /etc/containers/registries.conf
 
 ---
 kind: pipeline
@@ -58,25 +49,24 @@ platform:
 
 steps:
 - name: publish
-  image: docker.io/drycc/go-dev
+  image: quay.io/containers/podman
   privileged: true
   commands:
-  - apt-get update -qq
-  - apt-get install -y --no-install-recommends python3-pip 
-  - pip3 install setuptools pip --upgrade
-  - pip3 install -r requirements.txt
   - bin/ruby.sh 2.6.8 /tmp/dist
-  - bin/ruby.sh 2.7.4 /tmp/dist
-  - bin/ruby.sh 3.0.2 /tmp/dist
-  - bin/python.sh 3.6.15 /tmp/dist
-  - bin/python.sh 3.7.12 /tmp/dist
-  - bin/python.sh 3.8.12 /tmp/dist
-  - bin/python.sh 3.9.7 /tmp/dist
-  - bin/python.sh 3.10.0 /tmp/dist
-  - bin/php.sh 7.3.31 /tmp/dist
-  - bin/php.sh 7.4.24 /tmp/dist
-  - bin/php.sh 8.0.11 /tmp/dist
-  - python3 upload.py /tmp/dist drycc-20
+      && bin/ruby.sh 2.7.4 /tmp/dist
+      && bin/ruby.sh 3.0.2 /tmp/dist
+      && bin/python.sh 3.6.15 /tmp/dist
+      && bin/python.sh 3.7.12 /tmp/dist
+      && bin/python.sh 3.8.12 /tmp/dist
+      && bin/python.sh 3.9.7 /tmp/dist
+      && bin/python.sh 3.10.0 /tmp/dist
+      && bin/php.sh 7.3.31 /tmp/dist
+      && bin/php.sh 7.4.24 /tmp/dist
+      && bin/php.sh 8.0.11 /tmp/dist
+      && dnf install -y python3-pip
+      && pip3 install setuptools pip --upgrade
+      && pip3 install -r requirements.txt
+      && python3 upload.py /tmp/dist drycc-20
   environment:
     OSS_ENDPOINT:
       from_secret: oss_endpoint
